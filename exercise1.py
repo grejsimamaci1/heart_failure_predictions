@@ -7,7 +7,9 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score, classification_report, ConfusionMatrixDisplay
 import numpy as np
 
+# =========================
 # Load and preprocess data
+# =========================
 df = pd.read_csv("heart.csv")
 df = pd.get_dummies(df, drop_first=True)
 X = df.drop("HeartDisease", axis=1)
@@ -68,22 +70,27 @@ print("\n✅ Model Comparison Table")
 print(results_df)
 
 # =========================
-# Confusion Matrices
+# Confusion Matrices (saved as PNG)
 # =========================
 for name, pred in models.items():
     print(f"\nConfusion Matrix: {name}")
-    disp = ConfusionMatrixDisplay.from_predictions(y_test, pred, display_labels=["No Disease", "Disease"])
+    disp = ConfusionMatrixDisplay.from_predictions(
+        y_test, pred, display_labels=["No Disease", "Disease"]
+    )
     plt.title(f"Confusion Matrix: {name}")
+    filename = f"{name.replace(' ', '_')}_confusion_matrix.png"
+    plt.savefig(filename, bbox_inches='tight')
     plt.show()
 
 # =========================
-# Accuracy Bar Chart
+# Accuracy Bar Chart (saved as PNG)
 # =========================
 plt.figure(figsize=(8,5))
 plt.bar(results_df['Model'], results_df['Accuracy'], color=['skyblue','orange','green'])
 plt.ylim(0,1)
 plt.ylabel("Accuracy")
 plt.title("Model Accuracy Comparison")
+plt.savefig("model_accuracy_comparison.png", bbox_inches='tight')
 plt.show()
 
 # =========================
@@ -95,8 +102,6 @@ cv_models = {
     "Logistic Regression": LogisticRegression(max_iter=1000),
     "Naive Bayes": GaussianNB()
 }
-
-
 
 for name, model in cv_models.items():
     scores = cross_val_score(model, X, y, cv=5, scoring='accuracy')
