@@ -1,0 +1,7 @@
+The results show that Logistic Regression and Naive Bayes are the strongest models for predicting heart disease in this dataset,
+both achieving an accuracy of approximately 88% on the test set. Logistic Regression has the highest precision (0.92), 
+meaning it produces fewer false positives, while Naive Bayes has slightly higher recall (0.87), making it better at identifying actual
+cases of heart disease. The Decision Tree, with a shallow depth of 2, is less accurate at around 81% but remains highly interpretable,
+allowing one to easily understand the decision rules. Cross-validation confirms these findings, showing stable performance for all models, 
+with Decision Tree being slightly less consistent across folds. Overall, Logistic Regression is best for minimizing false alarms,
+Naive Bayes is slightly better at catching positive cases, and the Decision Tree provides a simple, interpretable model.
